@@ -1,0 +1,38 @@
+name: Release IntelliJ
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g. 0.1.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Publish IntelliJ plugin
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: '.nvmrc'
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Regenerate grammar
+        run: npm run generate
+
+      - name: Publish to JetBrains Marketplace
+        working-directory: extensions/intellij
+        run: ./gradlew publishPlugin -PpluginVersion="${{ inputs.version }}"
+        env:
+          ORG_GRADLE_PROJECT_intellijPlatformPublishingToken: ${{ secrets.INTELLIJ_PLATFORM_PUBLISHING_TOKEN }}

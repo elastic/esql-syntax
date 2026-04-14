@@ -1,0 +1,17 @@
+<idea-plugin>
+  <id>co.elastic.esql-syntax</id>
+  <name>ESQL Syntax</name>
+  <vendor url="https://www.elastic.co">Elastic</vendor>
+
+  <description><![CDATA[
+    Minimal ESQL support for IntelliJ-based IDEs using the bundled TextMate grammar.
+    Provides .esql file recognition and syntax highlighting.
+  ]]></description>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends>org.jetbrains.plugins.textmate</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <textmate.bundleProvider implementation="co.elastic.esqlsyntax.intellij.EsqlBundleProvider"/>
+  </extensions>
+</idea-plugin>

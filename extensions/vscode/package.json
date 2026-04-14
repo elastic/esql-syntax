@@ -1,0 +1,44 @@
+{
+  "name": "esql-syntax",
+  "displayName": "ESQL Syntax",
+  "description": "ESQL syntax highlighting",
+  "version": "0.1.0",
+  "publisher": "Elastic",
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elastic/esql-syntax"
+  },
+  "files": [
+    "icon.png",
+    "syntaxes/",
+    "LICENSE.txt",
+    "README.md"
+  ],
+  "scripts": {
+    "vscode:prepublish": "mkdir -p syntaxes && cp ../github/esql.tmLanguage.json syntaxes/esql.tmLanguage.json && cp ../../LICENSE.txt LICENSE.txt"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "esql",
+        "aliases": ["ES|QL", "esql"],
+        "extensions": [".esql"]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "esql",
+        "scopeName": "source.esql",
+        "path": "./syntaxes/esql.tmLanguage.json"
+      }
+    ]
+  }
+}
