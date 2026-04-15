@@ -20,5 +20,8 @@ code --install-extension esql-*.vsix
 
 ```bash
 cd extensions/intellij
-./gradlew runIde
+./gradlew runIde          # opens a sandbox IDE, blocks until you close it
+./gradlew buildPlugin     # generate ZIP in build/distributions/
 ```
+
+To install the ZIP manually: **Settings** > **Plugins** > **⚙️** > **Install Plugin from Disk...**.

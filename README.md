@@ -2,8 +2,8 @@
 
 TextMate grammar for [ES|QL](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html) (Elasticsearch Query Language), distributed as:
 
-- **VS Code extension** — [extensions/vscode/](extensions/vscode/)
-- **IntelliJ plugin** — [extensions/intellij/](extensions/intellij/)
+- **VS Code extension** — [VS Code Marketplace](https://marketplace.visualstudio.com/) · [Open VSX](https://open-vsx.org/)
+- **IntelliJ plugin** — [JetBrains Marketplace](https://plugins.jetbrains.com/)
 
 ## Project layout
 

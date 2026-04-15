@@ -23,7 +23,7 @@
     "README.md"
   ],
   "scripts": {
-    "vscode:prepublish": "mkdir -p syntaxes && cp ../../syntaxes/esql.tmLanguage.json syntaxes/esql.tmLanguage.json && cp ../../LICENSE.txt LICENSE.txt"
+    "vscode:prepublish": "mkdir -p syntaxes && cp ../../syntaxes/esql.tmLanguage.json syntaxes/esql.tmLanguage.json && cp ../../LICENSE.txt LICENSE.txt && npx --yes sharp-cli -i ../icon.svg -o icon.png resize 256 256"
   },
   "contributes": {
     "languages": [
