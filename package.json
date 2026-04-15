@@ -6,15 +6,6 @@
   "packageManager": "yarn@1.22.22",
   "type": "module",
   "scripts": {
-    "generate": "node src/generate.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "prepare": "husky"
-  },
-  "devDependencies": {
-    "@babel/parser": "^7.29.2",
-    "@eslint/js": "^10.0.1",
-    "eslint": "^10.0.0",
-    "husky": "^9.1.7"
+    "validate": "node scripts/validate-grammar.js"
   }
 }

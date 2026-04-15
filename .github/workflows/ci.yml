@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  grammar:
-    name: Grammar drift check + package
+  validate:
+    name: Validate grammar
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -20,19 +20,8 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
-      # Regenerate the canonical grammar and fail if it differs from what is
-      # committed. This ensures anyone editing src/esql-data.mjs has also
-      # committed the regenerated extensions/github/esql.tmLanguage.json.
-      - name: Regenerate grammar
-        run: npm run generate
-
-      - name: Check for drift
-        run: |
-          if ! git diff --exit-code extensions/github/esql.tmLanguage.json; then
-            echo "::error::extensions/github/esql.tmLanguage.json is out of date."
-            echo "::error::Run 'npm run generate' locally and commit the result."
-            exit 1
-          fi
+      - name: Validate grammar ordering
+        run: node scripts/validate-grammar.js
 
       # Verify the VS Code extension packages successfully (dry build, no publish)
       - name: Package VS Code extension
