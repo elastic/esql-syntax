@@ -9,7 +9,7 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   release:
@@ -29,8 +29,26 @@ jobs:
         working-directory: extensions/vscode
         run: npm version "${{ inputs.version }}" --no-git-tag-version --allow-same-version
 
+      - name: Package extension
+        working-directory: extensions/vscode
+        run: npx --yes @vscode/vsce package --no-dependencies
+
       - name: Publish to VS Code Marketplace
         working-directory: extensions/vscode
         run: npx --yes @vscode/vsce publish
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Publish to Open VSX Registry
+        working-directory: extensions/vscode
+        run: npx --yes ovsx publish *.vsix --pat "$OVSX_PAT"
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ inputs.version }}
+          name: v${{ inputs.version }}
+          files: extensions/vscode/*.vsix
+          generate_release_notes: true

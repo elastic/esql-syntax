@@ -20,7 +20,9 @@ java {
 }
 
 val generatedTextmateDir = layout.buildDirectory.dir("generated/textmate")
+val generatedMetaInfDir = layout.buildDirectory.dir("generated/META-INF")
 val sourceGrammar = projectDir.resolve("../../syntaxes/esql.tmLanguage.json")
+val sourceIcon = projectDir.resolve("../icon.svg")
 
 val syncTextmateBundle by tasks.registering(Sync::class) {
 	doFirst {
@@ -34,10 +36,19 @@ val syncTextmateBundle by tasks.registering(Sync::class) {
 	rename { "esql.tmLanguage.json" }
 }
 
+val syncPluginIcon by tasks.registering(Copy::class) {
+	from(sourceIcon)
+	into(generatedMetaInfDir)
+	rename { "pluginIcon.svg" }
+}
+
 tasks.processResources {
-	dependsOn(syncTextmateBundle)
+	dependsOn(syncTextmateBundle, syncPluginIcon)
 	from(generatedTextmateDir) {
 		into("textmate")
+	}
+	from(generatedMetaInfDir) {
+		into("META-INF")
 	}
 }
 
