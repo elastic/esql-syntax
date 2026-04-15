@@ -1,0 +1,128 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g. 0.1.0)"
+        required: true
+        type: string
+      target:
+        description: "What to release"
+        required: true
+        type: choice
+        options:
+          - all
+          - vscode
+          - intellij
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    name: Validate grammar
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Validate grammar ordering
+        run: node scripts/validate-grammar.js
+
+  vscode:
+    name: Publish VS Code extension
+    needs: validate
+    if: inputs.target == 'all' || inputs.target == 'vscode'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Set version in extension manifest
+        working-directory: extensions/vscode
+        run: npm version "${{ inputs.version }}" --no-git-tag-version --allow-same-version
+
+      - name: Package extension
+        working-directory: extensions/vscode
+        run: npx --yes @vscode/vsce package --no-dependencies
+
+      - name: Publish to VS Code Marketplace
+        working-directory: extensions/vscode
+        run: npx --yes @vscode/vsce publish
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Publish to Open VSX Registry
+        working-directory: extensions/vscode
+        run: npx --yes ovsx publish *.vsix --pat "$OVSX_PAT"
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vscode-extension
+          path: extensions/vscode/*.vsix
+
+  intellij:
+    name: Publish IntelliJ plugin
+    needs: validate
+    if: inputs.target == 'all' || inputs.target == 'intellij'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: '.nvmrc'
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Build plugin
+        working-directory: extensions/intellij
+        run: ./gradlew buildPlugin -PpluginVersion="${{ inputs.version }}"
+
+      - name: Publish to JetBrains Marketplace
+        working-directory: extensions/intellij
+        run: ./gradlew publishPlugin -PpluginVersion="${{ inputs.version }}"
+        env:
+          ORG_GRADLE_PROJECT_intellijPlatformPublishingToken: ${{ secrets.INTELLIJ_PLATFORM_PUBLISHING_TOKEN }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: intellij-plugin
+          path: extensions/intellij/build/distributions/*.zip
+
+  github-release:
+    name: Create GitHub Release
+    needs: [vscode, intellij]
+    if: always() && needs.validate.result == 'success' && (needs.vscode.result == 'success' || needs.vscode.result == 'skipped') && (needs.intellij.result == 'success' || needs.intellij.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ inputs.version }}
+          name: v${{ inputs.version }}
+          files: artifacts/*
+          generate_release_notes: true
