@@ -2,8 +2,9 @@
   "name": "@elastic/esql-syntax",
   "version": "0.1.0",
   "private": true,
+  "description": "TextMate grammar for ES|QL",
+  "author": "Kibana ES|QL team",
   "license": "MIT",
-  "packageManager": "yarn@1.22.22",
   "type": "module",
   "scripts": {
     "validate": "node scripts/validate-grammar.js"
