@@ -1,25 +1,16 @@
 # ESQL Syntax
 
-Syntax highlighting for [ES|QL](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html) (Elasticsearch Query Language) for IntelliJ-based IDEs, using the bundled TextMate grammar from this repository.
+Syntax highlighting for [ES|QL](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html) (Elasticsearch Query Language) for IntelliJ-based IDEs.
 
-## Local development
+Files with the `.esql` extension are automatically recognized.
 
-1. Regenerate the grammar at repo root:
+## Installation
 
-   ```bash
-   npm run generate
-   ```
+1. Open your IntelliJ-based IDE.
+2. Go to **Settings** > **Plugins** > **Marketplace**.
+3. Search for "ESQL Syntax".
+4. Click **Install**.
 
-2. From this directory, run the plugin in a sandbox IDE:
+## License
 
-   ```bash
-   ./gradlew runIde
-   ```
-
-3. Or build a distributable ZIP:
-
-   ```bash
-   ./gradlew buildPlugin
-   ```
-
-The generated plugin ZIP will be available under `build/distributions/`.
+MIT — see [LICENSE.txt](LICENSE.txt).

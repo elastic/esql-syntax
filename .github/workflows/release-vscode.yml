@@ -22,12 +22,12 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
+      - name: Validate grammar
+        run: node scripts/validate-grammar.js
+
       - name: Set version in extension manifest
         working-directory: extensions/vscode
         run: npm version "${{ inputs.version }}" --no-git-tag-version --allow-same-version
-
-      - name: Regenerate grammar
-        run: npm run generate
 
       - name: Publish to VS Code Marketplace
         working-directory: extensions/vscode

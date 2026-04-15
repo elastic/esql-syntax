@@ -20,12 +20,12 @@ java {
 }
 
 val generatedTextmateDir = layout.buildDirectory.dir("generated/textmate")
-val sourceGrammar = projectDir.resolve("../github/esql.tmLanguage.json")
+val sourceGrammar = projectDir.resolve("../../syntaxes/esql.tmLanguage.json")
 
 val syncTextmateBundle by tasks.registering(Sync::class) {
 	doFirst {
 		check(sourceGrammar.exists()) {
-			"Missing generated grammar: ${sourceGrammar.path}. Run `npm run generate` at repo root first."
+			"Missing grammar: ${sourceGrammar.path}."
 		}
 	}
 

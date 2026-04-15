@@ -28,8 +28,8 @@ jobs:
           java-version: '21'
           cache: gradle
 
-      - name: Regenerate grammar
-        run: npm run generate
+      - name: Validate grammar
+        run: node scripts/validate-grammar.js
 
       - name: Publish to JetBrains Marketplace
         working-directory: extensions/intellij
