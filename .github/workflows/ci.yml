@@ -20,6 +20,12 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
       - name: Validate grammar ordering
         run: node scripts/validate-grammar.js
 
@@ -27,3 +33,8 @@ jobs:
       - name: Package VS Code extension
         working-directory: extensions/vscode
         run: npx --yes @vscode/vsce package --no-dependencies
+
+      # Verify the IntelliJ plugin ZIP is structurally valid before release.
+      - name: Build and verify IntelliJ plugin
+        working-directory: extensions/intellij
+        run: ./gradlew buildPlugin verifyPluginProjectConfiguration verifyPluginStructure
