@@ -83,3 +83,19 @@ FROM data
   AND (category IN ("a", "b", "c") OR priority > 5)
   AND name LIKE "test*"
   AND pattern RLIKE "^[a-z]+$"
+
+// Value parameters (single ?)
+FROM logs
+| WHERE level == ?level
+| WHERE timestamp > ?1
+| WHERE user_id == ?
+
+// Identifier parameters (double ??)
+FROM ??index
+| WHERE ??field == "active"
+| KEEP ??col1, ??col2, ??_internal
+
+// Mixed
+FROM ??index
+| WHERE ??column == ?value
+| LIMIT ?max_results

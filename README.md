@@ -26,12 +26,12 @@ samples/
 
 ### VS Code
 
-- Search for "ESQL Syntax" in the [VS Code Marketplace](https://marketplace.visualstudio.com/) or [Open VSX](https://open-vsx.org/).
+- Search for "Highlight ES|QL" in the [VS Code Marketplace](https://marketplace.visualstudio.com/) or [Open VSX](https://open-vsx.org/).
 - Or download the latest `.vsix` from [GitHub Releases](https://github.com/elastic/esql-syntax/releases) and run **Extensions: Install from VSIX...**.
 
 ### IntelliJ
 
-- Search for "ESQL Syntax" in **Settings** > **Plugins** > **Marketplace**.
+- Search for "Highlight ES|QL" in **Settings** > **Plugins** > **Marketplace**.
 - Or download the latest plugin ZIP from [GitHub Releases](https://github.com/elastic/esql-syntax/releases) and use **Install Plugin from Disk...**.
 
 ## Contributing

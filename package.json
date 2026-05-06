@@ -1,5 +1,5 @@
 {
-  "name": "@elastic/esql-syntax",
+  "name": "@elastic/highlight-esql",
   "version": "0.0.0",
   "private": true,
   "description": "TextMate grammar for ES|QL",

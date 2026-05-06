@@ -68,17 +68,17 @@ jobs:
 
       - name: Package extension
         working-directory: extensions/vscode
-        run: npx --yes @vscode/vsce package --no-dependencies --out "esql-syntax-${{ inputs.version }}.vsix"
+        run: npx --yes @vscode/vsce package --no-dependencies --out "highlight-esql-${{ inputs.version }}.vsix"
 
       - name: Publish to VS Code Marketplace
         working-directory: extensions/vscode
-        run: npx --yes @vscode/vsce publish --packagePath "esql-syntax-${{ inputs.version }}.vsix"
+        run: npx --yes @vscode/vsce publish --packagePath "highlight-esql-${{ inputs.version }}.vsix"
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Publish to Open VSX Registry
         working-directory: extensions/vscode
-        run: npx --yes ovsx publish "esql-syntax-${{ inputs.version }}.vsix" --pat "$OVSX_PAT"
+        run: npx --yes ovsx publish "highlight-esql-${{ inputs.version }}.vsix" --pat "$OVSX_PAT"
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
 

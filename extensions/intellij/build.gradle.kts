@@ -3,7 +3,7 @@ plugins {
 	id("org.jetbrains.intellij.platform") version "2.6.0"
 }
 
-group = "co.elastic.esql-syntax"
+group = "co.elastic.highlight-esql"
 version = providers.gradleProperty("pluginVersion").orElse("0.0.0").get()
 
 repositories {

@@ -1,4 +1,4 @@
-# ESQL Syntax
+# Highlight ES|QL
 
 Syntax highlighting for [ES|QL](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html) (Elasticsearch Query Language) in IntelliJ-based IDEs.
 

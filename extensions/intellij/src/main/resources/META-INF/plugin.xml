@@ -1,6 +1,6 @@
 <idea-plugin>
-  <id>co.elastic.esql-syntax</id>
-  <name>ESQL Syntax</name>
+  <id>co.elastic.highlight-esql</id>
+  <name>Highlight ES|QL</name>
   <vendor url="https://www.elastic.co">Elastic</vendor>
 
   <description><![CDATA[
