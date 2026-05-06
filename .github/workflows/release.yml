@@ -7,6 +7,15 @@ on:
         description: "Version to release (e.g. 0.1.0)"
         required: true
         type: string
+      target:
+        description: "What to release"
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - vscode
+          - intellij
 
 permissions:
   contents: write
@@ -28,6 +37,7 @@ jobs:
   vscode:
     name: Publish VS Code extension
     needs: validate
+    if: inputs.target == 'all' || inputs.target == 'vscode'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -65,6 +75,7 @@ jobs:
   intellij:
     name: Publish IntelliJ plugin
     needs: validate
+    if: inputs.target == 'all' || inputs.target == 'intellij'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -98,6 +109,7 @@ jobs:
   github-release:
     name: Create GitHub Release
     needs: [vscode, intellij]
+    if: always() && needs.validate.result == 'success' && (needs.vscode.result == 'success' || needs.vscode.result == 'skipped') && (needs.intellij.result == 'success' || needs.intellij.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

@@ -4,8 +4,14 @@
   <vendor url="https://www.elastic.co">Elastic</vendor>
 
   <description><![CDATA[
-    Minimal ESQL support for IntelliJ-based IDEs using the bundled TextMate grammar.
-    Provides .esql file recognition and syntax highlighting.
+    Syntax highlighting for <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html">ES|QL</a> (Elasticsearch Query Language) in IntelliJ-based IDEs.
+    <br><br>
+    <b>Features:</b>
+    <ul>
+      <li>Highlighting for commands, functions, operators, literals, and parameters</li>
+      <li>Comments, strings, numeric literals, time intervals, type casts</li>
+      <li>Built-in support for the <code>.esql</code> file extension</li>
+    </ul>
   ]]></description>
 
   <depends>com.intellij.modules.platform</depends>

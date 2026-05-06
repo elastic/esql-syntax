@@ -2,7 +2,7 @@
   "name": "esql-syntax",
   "displayName": "ESQL Syntax",
   "description": "ESQL syntax highlighting",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "publisher": "Elastic",
   "license": "MIT",
   "icon": "icon.png",
