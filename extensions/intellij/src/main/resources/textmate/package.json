@@ -1,6 +1,6 @@
 {
   "name": "esql-textmate-bundle",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "ESQL TextMate bundle for JetBrains IDEs",
   "contributes": {
     "languages": [

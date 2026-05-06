@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "co.elastic.esql-syntax"
-version = providers.gradleProperty("pluginVersion").orElse("0.1.0").get()
+version = providers.gradleProperty("pluginVersion").orElse("0.0.0").get()
 
 repositories {
 	mavenCentral()
