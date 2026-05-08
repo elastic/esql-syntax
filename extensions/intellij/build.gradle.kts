@@ -23,6 +23,8 @@ val generatedTextmateDir = layout.buildDirectory.dir("generated/textmate")
 val generatedMetaInfDir = layout.buildDirectory.dir("generated/META-INF")
 val sourceGrammar = projectDir.resolve("../../syntaxes/esql.tmLanguage.json")
 val sourceIcon = projectDir.resolve("../icon.svg")
+val sourceLicense = projectDir.resolve("../../LICENSE.txt")
+val sourceNotice = projectDir.resolve("../../NOTICE.txt")
 
 val syncTextmateBundle by tasks.registering(Sync::class) {
 	doFirst {
@@ -48,6 +50,9 @@ tasks.processResources {
 		into("textmate")
 	}
 	from(generatedMetaInfDir) {
+		into("META-INF")
+	}
+	from(arrayOf(sourceLicense, sourceNotice)) {
 		into("META-INF")
 	}
 }

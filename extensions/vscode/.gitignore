@@ -1,6 +1,7 @@
 # Ephemeral files copied by vscode:prepublish before vsce package
 syntaxes/
 LICENSE.txt
+NOTICE.txt
 
 # Generated .vsix packages
 *.vsix

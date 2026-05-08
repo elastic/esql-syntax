@@ -20,10 +20,11 @@
     "icon.png",
     "syntaxes/",
     "LICENSE.txt",
+    "NOTICE.txt",
     "README.md"
   ],
   "scripts": {
-    "vscode:prepublish": "mkdir -p syntaxes && cp ../../syntaxes/esql.tmLanguage.json syntaxes/esql.tmLanguage.json && cp ../../LICENSE.txt LICENSE.txt && npx --yes sharp-cli -i ../icon.svg -o icon.png resize 256 256"
+    "vscode:prepublish": "mkdir -p syntaxes && cp ../../syntaxes/esql.tmLanguage.json syntaxes/esql.tmLanguage.json && cp ../../LICENSE.txt LICENSE.txt && cp ../../NOTICE.txt NOTICE.txt && npx --yes sharp-cli -i ../icon.svg -o icon.png resize 256 256"
   },
   "contributes": {
     "languages": [
