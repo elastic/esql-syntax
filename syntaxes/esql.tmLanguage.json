@@ -1,5 +1,4 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "ES|QL",
 	"scopeName": "source.esql",
 	"fileTypes": [
@@ -185,7 +184,7 @@
 		},
 		"processing-command": {
 			"name": "keyword.control.processing.esql",
-			"match": "(?i)\\b(?:REGISTERED_DOMAIN|CHANGE_POINT|METRICS_INFO|INLINESTATS|LOOKUP\\s+JOIN|COMPLETION|RIGHT\\s+JOIN|FULL\\s+JOIN|LEFT\\s+JOIN|MV_EXPAND|URI_PARTS|DISSECT|TS_INFO|METRICS|ENRICH|INSIST|LOOKUP|RENAME|RERANK|SAMPLE|LIMIT|RIGHT|STATS|WHERE|DROP|EVAL|FORK|FUSE|GROK|INFO|JOIN|KEEP|LEFT|SORT|MMR)\\b"
+			"match": "(?i)\\b(?:REGISTERED_DOMAIN|CHANGE_POINT|METRICS_INFO|INLINESTATS|LOOKUP\\s+JOIN|COMPLETION|RIGHT\\s+JOIN|FULL\\s+JOIN|LEFT\\s+JOIN|MV_EXPAND|URI_PARTS|DISSECT|TS_INFO|ENRICH|INSIST|LOOKUP|RENAME|RERANK|SAMPLE|LIMIT|RIGHT|STATS|WHERE|DROP|EVAL|FORK|FUSE|GROK|INFO|JOIN|KEEP|LEFT|SORT|MMR)\\b"
 		},
 		"header-command": {
 			"name": "keyword.control.header.esql",
