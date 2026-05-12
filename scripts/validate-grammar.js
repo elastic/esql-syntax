@@ -20,50 +20,55 @@
  */
 
 /**
- * Validates esql.tmLanguage.json:
+ * Validates the TextMate grammar files:
  *
- * 1. JSON is valid and has the expected TextMate structure
- * 2. Alternations in regex patterns are ordered longest-first,
- *    so that multi-word entries (e.g. "LEFT JOIN") are matched
- *    before their prefixes (e.g. "LEFT").
+ * 1. Every syntaxes/*.tmLanguage.json file parses as JSON.
+ * 2. esql.tmLanguage.json has the expected TextMate structure
+ *    and alternations are ordered longest-first.
  */
 
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const GRAMMAR_PATH = join(__dirname, "..", "syntaxes", "esql.tmLanguage.json");
+const SYNTAXES_DIR = join(__dirname, "..", "syntaxes");
+const CORE_GRAMMAR = "esql.tmLanguage.json";
 
-let grammar;
-try {
-  grammar = JSON.parse(readFileSync(GRAMMAR_PATH, "utf-8"));
-} catch (err) {
-  console.error(`Failed to parse grammar: ${err.message}`);
-  process.exit(1);
-}
+const errors = [];
+const grammarFiles = readdirSync(SYNTAXES_DIR).filter((f) => f.endsWith(".tmLanguage.json"));
 
-// Basic structure checks
-const required = ["name", "scopeName", "patterns", "repository"];
-for (const key of required) {
-  if (!(key in grammar)) {
-    console.error(`Missing required top-level key: "${key}"`);
-    process.exit(1);
+let coreGrammar;
+for (const file of grammarFiles) {
+  const path = join(SYNTAXES_DIR, file);
+  try {
+    const content = JSON.parse(readFileSync(path, "utf-8"));
+    if (file === CORE_GRAMMAR) coreGrammar = content;
+  } catch (err) {
+    errors.push(`[${file}] Failed to parse: ${err.message}`);
   }
 }
 
-// Extract alternations from regex patterns and validate ordering
-const errors = [];
+if (!coreGrammar) {
+  console.error(`Failed to load core grammar: ${CORE_GRAMMAR}`);
+  process.exit(1);
+}
+
+// Core grammar structure checks
+const required = ["name", "scopeName", "patterns", "repository"];
+for (const key of required) {
+  if (!(key in coreGrammar)) {
+    errors.push(`[${CORE_GRAMMAR}] Missing required top-level key: "${key}"`);
+  }
+}
 
 function extractAlternations(regex) {
-  // Match the non-capturing alternation group: (?:...) — skip (?i) flag
   const match = regex.match(/\(\?:((?:[^()]+|\([^()]*\))*)\)/);
   if (!match) return null;
   return match[1].split("|");
 }
 
 function normalizeAlt(alt) {
-  // Replace \s+ with space for length comparison
   return alt.replace(/\\s\+/g, " ").replace(/\\\\/g, "\\");
 }
 
@@ -77,16 +82,15 @@ function checkOrdering(ruleName, regex) {
 
     if (current.length < next.length) {
       errors.push(
-        `[${ruleName}] "${alts[i]}" (${current.length} chars) comes before ` +
+        `[${CORE_GRAMMAR}:${ruleName}] "${alts[i]}" (${current.length} chars) comes before ` +
         `"${alts[i + 1]}" (${next.length} chars) — longest-first ordering violated`
       );
     }
   }
 }
 
-// Walk all rules in the repository — only check case-insensitive
-// word-bounded patterns (keyword/command alternations).
-for (const [name, rule] of Object.entries(grammar.repository)) {
+// Longest-first check: only case-insensitive word-bounded patterns in the core grammar
+for (const [name, rule] of Object.entries(coreGrammar.repository || {})) {
   if (rule.match && rule.match.startsWith("(?i)\\b")) {
     checkOrdering(name, rule.match);
   }
@@ -108,4 +112,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log("Grammar validation passed.");
+console.log(`Grammar validation passed (${grammarFiles.length} files).`);

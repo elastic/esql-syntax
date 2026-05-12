@@ -1,6 +1,6 @@
 # esql-syntax
 
-TextMate grammar for [ES|QL](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html) (Elasticsearch Query Language), distributed as:
+Syntax highlighting for [ES|QL](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html) (Elasticsearch Query Language) queries in `.esql` files, distributed as:
 
 - **VS Code extension** — [VS Code Marketplace](https://marketplace.visualstudio.com/) · [Open VSX](https://open-vsx.org/)
 - **IntelliJ plugin** — [JetBrains Marketplace](https://plugins.jetbrains.com/)

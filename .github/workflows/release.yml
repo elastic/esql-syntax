@@ -172,4 +172,3 @@ jobs:
           tag_name: v${{ inputs.version }}
           name: v${{ inputs.version }}
           files: artifacts/*
-          body: "See [CHANGELOG.md](https://github.com/elastic/esql-syntax/blob/main/CHANGELOG.md) for the list of changes."
