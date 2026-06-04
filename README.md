@@ -4,7 +4,7 @@ Syntax highlighting for [ES|QL](https://www.elastic.co/guide/en/elasticsearch/re
 
 - **VS Code extension** — [VS Code Marketplace](https://marketplace.visualstudio.com/) · [Open VSX](https://open-vsx.org/)
 - **IntelliJ plugin** — [JetBrains Marketplace](https://plugins.jetbrains.com/)
-- **TextMate / Sublime Text / other editors** — `esql.tmLanguage` in [GitHub Releases](https://github.com/elastic/esql-syntax/releases)
+- **Sublime Text / TextMate / other editors** — Package Control (search for `ES|QL`) or download `esql.tmLanguage` from [syntaxes/](https://github.com/elastic/esql-syntax/blob/main/syntaxes/esql.tmLanguage)
 
 ## Project layout
 
