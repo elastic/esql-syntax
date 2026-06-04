@@ -46,6 +46,11 @@ jobs:
       - name: Validate grammar ordering
         run: node scripts/validate-grammar.js
 
+      - name: Check TextMate XML is in sync with JSON
+        run: |
+          npm run build
+          git diff --exit-code syntaxes/esql.tmLanguage || (echo "::error::syntaxes/esql.tmLanguage is out of sync. Run: npm run build" && exit 1)
+
       - name: Check runtime dependency licenses
         run: node scripts/check-licenses.js
 

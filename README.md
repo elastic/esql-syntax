@@ -4,19 +4,22 @@ Syntax highlighting for [ES|QL](https://www.elastic.co/guide/en/elasticsearch/re
 
 - **VS Code extension** — [VS Code Marketplace](https://marketplace.visualstudio.com/) · [Open VSX](https://open-vsx.org/)
 - **IntelliJ plugin** — [JetBrains Marketplace](https://plugins.jetbrains.com/)
+- **TextMate / Sublime Text / other editors** — `esql.tmLanguage` in [GitHub Releases](https://github.com/elastic/esql-syntax/releases)
 
 ## Project layout
 
 ```text
 syntaxes/
-└── esql.tmLanguage.json               # Canonical grammar (edit here)
+├── esql.tmLanguage.json               # Canonical grammar (edit here)
+└── esql.tmLanguage                    # Generated XML — run: npm run build
 
 extensions/
 ├── vscode/                            # VS Code extension
 └── intellij/                          # IntelliJ plugin wrapper
 
 scripts/
-└── validate-grammar.js                # Validates alternation ordering
+├── validate-grammar.js                # Validates alternation ordering
+└── json-to-xml.js                     # Converts grammar JSON → XML plist
 
 samples/
 └── example.esql                       # Sample queries for manual testing
@@ -33,6 +36,14 @@ samples/
 
 - Search for "Highlight ES|QL" in **Settings** > **Plugins** > **Marketplace**.
 - Or download the latest plugin ZIP from [GitHub Releases](https://github.com/elastic/esql-syntax/releases) and use **Install Plugin from Disk...**.
+
+## Development
+
+After editing `syntaxes/esql.tmLanguage.json`, regenerate the XML and commit both files:
+
+```bash
+npm run build
+```
 
 ## Contributing
 

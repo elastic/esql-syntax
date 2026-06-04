@@ -7,6 +7,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "validate": "node scripts/validate-grammar.js"
+    "validate": "node scripts/validate-grammar.js",
+    "build": "node scripts/json-to-xml.js"
   }
 }
